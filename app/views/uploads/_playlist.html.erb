@@ -1,0 +1,46 @@
+            <table id="media-table" class="display">
+              <thead>
+                <tr>
+                    <th>#</th>
+                    <th>File</th>
+                    <th>Size</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+              <% @files.each_with_index do |f,i| %>
+              <tr>
+                <td><%= @device_id != 0 ? f.ord : i+1 %></td>
+                <td><%= f.name %></td>
+                <td><%= f.size %> Mb</td>
+                <td><%= f.ext %></td>
+                <td><%= f.user_id %></td>
+                <td><%= f.id %></td>
+                <td>
+                  <% if @device_id != 0 %>
+                  <%= link_to(content_tag(:i, fa_icon('trash-o')), 
+                    '/media/song/' + f.id.to_s + '?device_id='+@device_id.to_s ,
+                    :class=>'btn btn-default btn-xs', 
+                    method: :delete, 
+                    data: { 
+                      confirm: 'Stergeţi fişierul '+ f.name + 'din playlist-ul audio?' 
+                    }
+                  ) %>
+                  <% else %>
+                  <%= link_to(content_tag(:i, fa_icon('trash-o')), 
+                    '/media/song/' + f.id.to_s,
+                    :class=>'btn btn-default btn-xs', 
+                    method: :delete, 
+                    data: { 
+                      confirm: 'Stergeţi fişierul '+ f.name + 'din toate playlist-urile?' 
+                    }
+                  ) %>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+            </table>

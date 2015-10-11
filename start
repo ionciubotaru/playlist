@@ -1,0 +1,6 @@
+#!/bin/bash
+#pid=`ps -ef | grep "rails" | grep "p3004" | awk '{print $2}'`
+#kill $pid > /dev/null 2>&1
+#rails s -b0.0.0.0 -p3004 -d
+#rails s -b0.0.0.0 -p3004 -d -e production
+rails s -b $IP -p $PORT

@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <input id="cal-id" class="hide" value="<%=params[:id]%>">
+  <span class="current-page hide" data-controller-name="playlist" data-action-name="display-7-days"></span>
+  <div class="col-md-12" style="width: 6050px">
+      <% (1..7).each do |i|%>
+        <table id="calendars-<%= i %>" style="width: 850px; display: inline-block">
+            <tr>
+              <th style="padding: 0 0 10px 0">
+                <span id="label-<%= i %>"></span>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <div style="border-left: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                  <i class="fa fa-volume-up"></i>&nbsp;&nbsp;AUDIO
+                </div>
+              </th>
+              <th>
+                <div style="border-left: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                  <i class="fa fa-bullhorn"></i>&nbsp;&nbsp;AUD ADD
+                </div>
+              </th>
+              <th>
+                <div style="border-left: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                  <i class="fa fa-film"></i>&nbsp;&nbsp;VIDEO
+                </div>
+              </th>
+              <th>
+                <div style="border-left: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                  <i class="fa fa-video-camera"></i>&nbsp;&nbsp;VID ADD
+                </div>
+              </th>
+              <th>
+                <div style="border-left: solid 1px lightgrey; border-right: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                  <i class="fa fa-edit"></i>&nbsp;&nbsp;TEXT
+                </div>
+              </th>
+            </tr>
+          <tbody>
+            <tr class="calendar-row">
+              <td id="calendar-<%= i %>01" class='calendars' data-calendar-type="1"></td>
+              <td id="calendar-<%= i %>03" class='calendars' data-calendar-type="3"></td>
+              <td id="calendar-<%= i %>02" class='calendars' data-calendar-type="2"></td>
+              <td id="calendar-<%= i %>04" class='calendars' data-calendar-type="4"></td>
+              <td id="calendar-<%= i %>05" class='calendars' data-calendar-type="5"></td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>

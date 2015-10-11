@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+            <div class="list-group sections">
+              <% if @groups.length > 0 %>
+                <% @groups.each do | g | %>
+                <a href="/group/<%= g.id %>" class="btn btn-primary btn-lg btn-block"><span class="glyphicon glyphicon-hand-right pull-left"></span><%= g.name %></a>
+                <% end %>
+              <% else %>
+                <div class="alert alert-danger fade in" style="margin-top: 50px">
+                  <button class="close" data-dismiss="alert">×</button>
+                  <i class="fa fa-warning"></i>&nbsp;&nbsp;<span>Nu este definită nici o secţie!</span>
+                </div>
+              <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+

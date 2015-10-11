@@ -1,0 +1,20 @@
+<div id="delete-device-container" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete device<small></small></h4>
+      </div>
+      <%= form_tag '/device/delete', { method: :post, :class => "" } do %>
+        <div class="modal-body">
+            <input class="hide device-target-id" name="device_id" value="" />
+            Really delete <strong class="device-name"></strong>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          <button type="submit" class="btn btn-primary">Yes</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

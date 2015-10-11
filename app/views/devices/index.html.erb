@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <span class="current-page hide" data-controller-name="devices" data-action-name="index"></span>
+    <div class="panel panel-default">
+      <div class="panel-body" >
+        <div class="col-md-5 row">
+          <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading clearfix">
+               <div class="col-md-10 row"> 
+                  <input id="search-device" class="form-control" type="search" placeholder="Search devices">
+                </div>
+                <div class="col-md-2 pull-right row"> 
+                  <button id="new-device" title="Click to create a new device" type="button" class="btn btn-default btn-default pull-right"><i class="fa fa-plus"></i>&nbsp;New</button>
+                </div>
+            </div>
+            <div class="panel-body">
+              <ul id="user_devices" class="list-group">
+                <% @devices.each do |d| %>
+                  <li data-toggle="device-context" data-location-latitude="<%= d.lat %>" data-device-id="<%= d.id %>" data-location-longitude="<%= d.lng %>" class="device-context list-group-item"><h5><%= d.name %><small>&nbsp;(<%= d.address %>)</small></h5></a></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7 row pull-right">
+          <div id="multi_markers" style='height: 450px;'></div>
+        </div>
+      </div>
+    </div>
+    <%= render "devices/modals/new" %>
+    <%= render "devices/modals/delete" %>
+    <%= render "devices/modals/update" %>
+    <%= render "devices/modals/attach" %>
+    <%= render "devices/menus/device_context" %>
+  </div>
