@@ -1,6 +1,6 @@
 #!/bin/bash
 git status
-pause
+read -p "Press Enter "
 git commit -a -m 'added'
-pause
+read -p "Press Enter "
 git push git@github.com:ionciubotaru/playlist.git
