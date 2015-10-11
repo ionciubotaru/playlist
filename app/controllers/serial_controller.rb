@@ -8,38 +8,40 @@ class SerialController < ApplicationController
     render text: "Invalid license" and return if not device
     if device and params[:object]
         if ['Mediafile','Plist'].include?(params[:object])
-	    rasp=eval(params[:object]+'.where(user_id: device.user_id)')
-	elsif params[:object]=='Calendar'
-	    rasp=Calendar.where(id: device.calendar_id)
-	elsif params[:object]=='Calendarmediafile'
-	    calendar=Calendar.find(device.calendar_id)
-	    ids = Parentcalendarmediafile.select('id').where(calendar_id: calendar.id)
-	    rasp = Calendarmediafile.where(['parentcalendarmediafile_id in (?) and date(start) between ? and date(DATE_ADD(?,INTERVAL 14 DAY))', ids, t, t])
-	elsif params[:object]=='Parentcalendarmediafile'
-	    calendar=Calendar.find(device.calendar_id)
-	    rasp = Parentcalendarmediafile.where(['calendar_id=? and ? between date(`from`) and date(`to`)', calendar.id, t])
-	elsif params[:object]=='Plistmediafile'
-	    ids=Plist.select('id').where(user_id: device.user_id)
-	    rasp = Plistmediafile.where(plist_id: ids)
-	else
-	    rasp=Log.where(id: 0)
-	end
-	begin
-	    max=rasp.maximum(:created_at).strftime("%s")
-	rescue
-	    max=0
-	end
-	rasp='{}' if max == params[:max]
+	        rasp=eval(params[:object]+'.where(user_id: device.user_id)')
+	      elsif params[:object]=='Calendar'
+	        rasp=Calendar.where(id: device.calendar_id)
+	      elsif params[:object]=='Calendarmediafile'
+    	    calendar=Calendar.find(device.calendar_id)
+    	    ids = Parentcalendarmediafile.select('id').where(calendar_id: calendar.id)
+    	    rasp = Calendarmediafile.where(['parentcalendarmediafile_id in (?) and date(start) between ? and date(DATE_ADD(?,INTERVAL 14 DAY))', ids, t, t])
+      	elsif params[:object]=='Parentcalendarmediafile'
+      	    calendar=Calendar.find(device.calendar_id)
+      	    rasp = Parentcalendarmediafile.where(['calendar_id=? and ? between date(`from`) and date(`to`)', calendar.id, t])
+      	elsif params[:object]=='Plistmediafile'
+      	    ids=Plist.select('id').where(user_id: device.user_id)
+      	    rasp = Plistmediafile.where(plist_id: ids)
+      	else
+      	    rasp=Log.where(id: 0)
+      	end
+      	begin
+      	    max=rasp.maximum(:created_at).strftime("%s")
+      	rescue
+      	    max=0
+      	end
+      	rasp='{}' if max == params[:max]
     end
-    render json: rasp || '{}'
+    re8nder json: rasp || '{}'
   end
+  
   def download
     begin
         send_file Rails.root.to_s+'/public/songs/'+params[:user_id]+'/'+params[:song], :type=>"application/zip", :x_sendfile=>true
     rescue
-	render text: "Error" and return
+	  render text: "Error" and return
     end
   end
+  
   def clean
     user_ids=User.select('id').all
     Mediafile.where.not(user_id: user_ids).destroy_all
@@ -47,11 +49,11 @@ class SerialController < ApplicationController
     media.each do |m|
         song_name = Rails.root.to_s+"/public/songs/"+m.user_id.to_s+"/"+m.id.to_s+m.ext
         if not File.exist?(song_name)
-	    m.destroy
-#	elsif not m.checksum==Digest::SHA2.file(song_name).hexdigest
-#	    m.destroy
-#	    File.delete(song_name)
-	end
+	        m.destroy
+      #	elsif not m.checksum==Digest::SHA2.file(song_name).hexdigest
+      #	    m.destroy
+      #	    File.delete(song_name)
+      	end
     end
     Plist.where.not(user_id: user_ids).destroy_all
     Device.where.not(user_id: user_ids).destroy_all

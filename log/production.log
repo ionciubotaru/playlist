@@ -1,6 +1,0 @@
-E, [2015-08-26T12:11:08.084181 #5603] ERROR -- : Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM `plistmediafiles`
-F, [2015-08-26T12:11:08.086156 #5603] FATAL -- : 
-ActiveRecord::StatementInvalid (Mysql2::Error: Got error 28 from storage engine: SHOW FULL FIELDS FROM `plistmediafiles`):
-  app/controllers/uploads_controller.rb:49:in `destroy'
-
-
