@@ -1,4 +1,5 @@
 #!/bin/bash
+rake tmp:clear
 rm /log/development.log 2>&1
 rm /log/production.log 2>&1
 git status
