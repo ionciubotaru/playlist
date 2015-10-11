@@ -3,6 +3,6 @@
 #kill $pid > /dev/null 2>&1
 #rails s -b0.0.0.0 -p3004 -d
 #rails s -b0.0.0.0 -p3004 -d -e production
-rm /log/development.log > /dev/null 2>&1
-rm /log/production.log > /dev/null 2>&1
+rm ./log/development.log > /dev/null 2>&1
+rm ./log/production.log > /dev/null 2>&1
 rails s -b $IP -p $PORT
