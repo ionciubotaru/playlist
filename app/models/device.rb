@@ -4,7 +4,16 @@ class Device < ActiveRecord::Base
 
   def active
     log=Log.where('operation like "%'+self.sn+'%"').order(id: :desc).first
-    dif = (not self.sn.empty? and log and (Time.now - log.created_at) < 12*60 ? true : false)
-    dif
+    if not log or self.sn.empty?
+      msg='class="label label-default">Never'
+    elsif (Time.now - log.created_at) < 12*60
+      msg='class="label label-success">'+log.created_at.to_formatted_s(:short)
+    elsif (Time.now - log.created_at) < 30*60
+      msg='class="label label-warning">'+log.created_at.to_formatted_s(:short)
+    else
+      msg='class="label label-danger">'+log.created_at.to_formatted_s(:short)
+    end    
+#    dif = (not self.sn.empty? and log and (Time.now - log.created_at) < 12*60 ? true : false)
+    msg
   end
 end

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   get '/serial', to: 'serial#index'
   get '/download', to: 'serial#download'
   get '/clean', to: 'serial#clean'
+  get '/print', to: 'serial#print'
 
   if Rails.env.production?
     get '*path' => redirect('/')
