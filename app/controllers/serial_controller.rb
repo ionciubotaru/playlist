@@ -3,9 +3,13 @@ class SerialController < ApplicationController
   def index
     rasp='{}'
     t = Time.now.to_date
-    Log.create(operation: "Update "+params[:serial]+" object "+params[:object])
     device=Device.where(sn: params[:serial]).first
-    render text: "Invalid license" and return if not device
+    if not device
+      Log.create(operation: "Invalid license "+params[:serial])
+      render text: "Invalid license" and return
+    else
+      Log.create(operation: "Update "+params[:serial]+" object "+params[:object])
+    end
     if device and params[:object]
         if ['Mediafile','Plist'].include?(params[:object])
 	        rasp=eval(params[:object]+'.where(user_id: device.user_id)')
@@ -72,23 +76,6 @@ class SerialController < ApplicationController
     Device.where('lat is null or lng is null').update_all(lat: 44.4268, lng: 26.1025)
     render text: 'Ok'
   end
-  
-  def print
-    @calendars = Calendar.all
-    report = ODFReport::Report.new("#{Rails.root}/app/reports/ticket.odt") do |r|
-  
-      r.add_field(:test,        '1')
-      
-      r.add_table("TABLE", @calendars) do |t|
-        t.add_column(:id, :id)
-        t.add_column(:name) { |op| "#{op.name}" }
-      end
 
-    end
-  send_data report.generate, type: 'application/vnd.oasis.opendocument.text',
-                              disposition: 'attachment',
-                              filename: 'report.odt'
-  end
-  
 end
 

@@ -13,7 +13,6 @@ class Device < ActiveRecord::Base
     else
       msg='class="label label-danger">'+log.created_at.to_formatted_s(:short)
     end    
-#    dif = (not self.sn.empty? and log and (Time.now - log.created_at) < 12*60 ? true : false)
     msg
   end
 end
