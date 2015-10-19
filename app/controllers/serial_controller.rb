@@ -76,6 +76,16 @@ class SerialController < ApplicationController
     Device.where('lat is null or lng is null').update_all(lat: 44.4268, lng: 26.1025)
     render text: 'Ok'
   end
+  
+  def pi
+    device=Device.where(sn: params[:serial]).first
+    if device
+      device.version=params[:version]
+      device.sdfull=params[:full]
+      device.save
+    end
+    render text: "Ok"
+  end
 
 end
 

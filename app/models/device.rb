@@ -15,4 +15,18 @@ class Device < ActiveRecord::Base
     end    
     msg
   end
+  
+  def full
+    if self.sdfull == nil
+      msg='class="label label-default">0'
+    elsif self.sdfull <= 80
+      msg='class="label label-success">'+self.sdfull.to_s
+    elsif self.sdfull > 80 and self.sdfull < 86
+      msg='class="label label-warning">'+self.sdfull.to_s
+    else
+      msg='class="label label-danger">'+self.sdfull.to_s
+    end    
+    msg
+  end
+  
 end
