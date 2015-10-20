@@ -85,7 +85,7 @@ class SerialController < ApplicationController
     device=Device.where(sn: params[:serial]).first
     if device
       device.version=params[:version]
-      device.sdfull=params[:full]
+      device.sdfull=params[:full].to_i+10
       device.save
       Log.create(operation: "Alive "+params[:serial])
       txt="Ok"
