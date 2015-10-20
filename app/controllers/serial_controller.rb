@@ -11,8 +11,10 @@ class SerialController < ApplicationController
       Log.create(operation: "Update "+params[:serial]+" object "+params[:object])
     end
     if device and params[:object]
-        if ['Mediafile','Plist'].include?(params[:object])
-	        rasp=eval(params[:object]+'.where(user_id: device.user_id)')
+	      if params[:object]=='Mediafile'
+	        rasp=Mediafile.where(user_id: device.user_id)
+	      elsif params[:object]=='Plist'
+	        rasp=Plist.where(user_id: device.user_id)
 	      elsif params[:object]=='Calendar'
 	        rasp=Calendar.where(id: device.calendar_id)
 	      elsif params[:object]=='Calendarmediafile'
@@ -35,7 +37,7 @@ class SerialController < ApplicationController
       	end
       	rasp='{}' if max == params[:max]
     end
-    re8nder json: rasp || '{}'
+    render json: rasp || '{}'
   end
   
   def download
@@ -83,6 +85,7 @@ class SerialController < ApplicationController
       device.version=params[:version]
       device.sdfull=params[:full]
       device.save
+      Log.create(operation: "Alive "+params[:serial])
     end
     render text: "Ok"
   end
