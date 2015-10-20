@@ -1,0 +1,7 @@
+#!/bin/bash
+rm -fr .git 
+git init 
+git remote add origin https://github.com/ionciubotaru/playlist
+git fetch
+#git reset --mixed origin/master
+git reset --hard origin/master
