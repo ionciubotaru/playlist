@@ -3,16 +3,17 @@ class Device < ActiveRecord::Base
   belongs_to :calendar
 
   def active
-    log=Log.where('operation like "%'+self.sn+'%"').order(id: :desc).first
-    if not log or self.sn.empty?
-      msg='class="label label-default">Never'
+    log=Log.where('operation like "%'+self.sn+'%"').order(id: :desc).first if not self.sn.empty?
+    if not log
+      color='danger disabled'
     elsif (Time.now - log.created_at) < 12*60
-      msg='class="label label-success">'+log.created_at.to_formatted_s(:short)
+      color='success'
     elsif (Time.now - log.created_at) < 30*60
-      msg='class="label label-warning">'+log.created_at.to_formatted_s(:short)
+      color='warning'
     else
-      msg='class="label label-danger">'+log.created_at.to_formatted_s(:short)
-    end    
+      color='danger'
+    end
+    msg='<a data-remote="true" href="/timelines/log" class="btn btn-'+color+' btn-xs" role="button">'+(log ? log.created_at.to_formatted_s(:short) : "&nbsp;&nbsp;&nbsp;&nbsp;Never&nbsp;&nbsp;&nbsp;&nbsp;") +'</a>'
     msg
   end
   

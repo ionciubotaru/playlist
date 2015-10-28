@@ -10,4 +10,8 @@ class TimelinesController < ApplicationController
     map.save
     render json: '{}'
   end
+  def log
+    @device=Device.first    
+    @logs=Log.all.order(created_at: :desc).limit(300)
+  end
 end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/charts', to: 'charts#index'
   get '/calendar/show/:id', to: 'playlist#display_7_days'
   get '/timelines', to: 'timelines#index'
+  get '/timelines/log', to: 'timelines#log'
   post '/timelines/map', to: 'timelines#map'
   root 'devices#index'
   post '/device/new', to: 'devices#new'
