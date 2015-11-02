@@ -38,8 +38,8 @@ class PlaylistController < ApplicationController
     parent = event.parentcalendarmediafile
     audio,hdmi = params[:audio], params[:hdmi]
     if not audio and not hdmi
-	audio=true if parent.destmediatype==1 or parent.destmediatype==3 or parent.destmediatype==5
-	hdmi =true if parent.destmediatype==2 or parent.destmediatype==4
+	    audio=true if parent.destmediatype==1 or parent.destmediatype==3 or parent.destmediatype==5
+	    hdmi =true if parent.destmediatype==2 or parent.destmediatype==4
     end
     @caltype=parent.destmediatype
     parent.update(from: params[:from], to: params[:to],
@@ -47,22 +47,22 @@ class PlaylistController < ApplicationController
 	    tstart: params[:start], duration1: params[:duration1], duration2: params[:duration2], repeat: params[:repeat] || 0,
 	    every: params[:every] || 0, volume: params[:volume], audio: audio, hdmi: hdmi )
     Calendarmediafile.where(parentcalendarmediafile_id: event.parentcalendarmediafile_id).destroy_all
-    offset = "+0300"
+    offset = "+0200"
     params[:from].to_date.upto(params[:to].to_date) do |date|
-	if eval('params[:d'+(date.wday).to_s+']=="on"')
-	    start = (date.to_s+' '+params[:start]).to_datetime.change(offset: offset)
-	    if [3,4,5].include?(@caltype)
-		for i in 1..[1,parent.repeat].max
-		    end1 = start + (@caltype==5 ? parent.duration1.hour + parent.duration2.minute : 10.minute)
-		    Calendarmediafile.create(parentcalendarmediafile_id: event.parentcalendarmediafile_id, start: start.to_s, end: end1.to_s) if date.to_date==end1.to_date
-		    start = start + [1,parent.every].max.minute
-		end
-	    else
-		end1 = start + parent.duration1.hour + parent.duration2.minute
-		end1 = (date.to_s+' 23:59:29').to_datetime.change(offset: offset) if not start.to_date==end1.to_date
-		Calendarmediafile.create(parentcalendarmediafile_id: event.parentcalendarmediafile_id, start: start, end: end1)
+	    if eval('params[:d'+(date.wday).to_s+']=="on"')
+	      start = (date.to_s+' '+params[:start]).to_datetime.change(offset: offset)
+	       if [3,4,5].include?(@caltype)
+		        for i in 1..[1,parent.repeat].max
+		          end1 = start + (@caltype==5 ? parent.duration1.hour + parent.duration2.minute : 10.minute)
+		          Calendarmediafile.create(parentcalendarmediafile_id: event.parentcalendarmediafile_id, start: start.to_s, end: end1.to_s) if date.to_date==end1.to_date
+		          start = start + [1,parent.every].max.minute
+        		end
+	       else
+		        end1 = start + parent.duration1.hour + parent.duration2.minute
+		        end1 = (date.to_s+' 23:59:29').to_datetime.change(offset: offset) if not start.to_date==end1.to_date
+		        Calendarmediafile.create(parentcalendarmediafile_id: event.parentcalendarmediafile_id, start: start, end: end1)
+	        end
 	    end
-	end
     end
   end
   def get
