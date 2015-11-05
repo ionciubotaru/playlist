@@ -88,7 +88,8 @@ class SerialController < ApplicationController
       device.sdfull=params[:full].to_i+10
       device.save
       Log.create(operation: "Alive "+params[:serial])
-      txt=(device.order ? "Ok" : device.order)
+      txt=device.order
+      txt = "Ok" if not txt
     else
       txt="Error"
     end

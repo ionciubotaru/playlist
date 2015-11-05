@@ -47,7 +47,8 @@ class PlaylistController < ApplicationController
 	    tstart: params[:start], duration1: params[:duration1], duration2: params[:duration2], repeat: params[:repeat] || 0,
 	    every: params[:every] || 0, volume: params[:volume], audio: audio, hdmi: hdmi )
     Calendarmediafile.where(parentcalendarmediafile_id: event.parentcalendarmediafile_id).destroy_all
-    offset = "+0200"
+#   offset = "+0200"
+    offset = Time.zone.now.strftime("%:z")
     params[:from].to_date.upto(params[:to].to_date) do |date|
 	    if eval('params[:d'+(date.wday).to_s+']=="on"')
 	      start = (date.to_s+' '+params[:start]).to_datetime.change(offset: offset)
