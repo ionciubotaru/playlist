@@ -33,7 +33,7 @@ class SerialController < ApplicationController
       	    rasp=Log.where(id: 0)
       	end
       	begin
-      	    max=rasp.maximum(:created_at).strftime("%s")
+      	    max=rasp.maximum(:created_at).strftime("%s")+"I"+rasp.sum(:id).to_s
       	rescue
       	    max=0
       	end
