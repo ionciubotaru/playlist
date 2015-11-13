@@ -9,7 +9,7 @@ class SerialController < ApplicationController
       render text: "Invalid license" and return
     end
     if device and params[:object]
-      Log.create(operation: "Update "+params[:serial]+" object "+params[:object], device_id: device.id)
+      Log.create(operation: "Update "+params[:serial]+" object "+params[:object], device_id: device.id, operation_type: 2)
       if params[:object]=='Mediafile'
   	    mediafile_ids1 = Parentcalendarmediafile.select('mediafile_id').where(['calendar_id=? and mediafile_id is not null', device.calendar.id])
   	    plist_ids = Parentcalendarmediafile.select('plist_id').where(['calendar_id=? and plist_id is not null', device.calendar.id])
@@ -88,7 +88,7 @@ class SerialController < ApplicationController
       device.version=params[:version]
       device.sdfull=params[:full].to_i+10
       device.save
-      Log.create(operation: "Alive "+params[:serial])
+      Log.create(operation: "Alive "+params[:serial], device_id: device.id, operation_type: 3)
       txt=device.order
       txt = "Ok" if not txt
     else
