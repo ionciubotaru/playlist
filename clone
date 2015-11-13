@@ -9,3 +9,4 @@ rake tmp:clear
 rm ./log/development.log > /dev/null 2>&1
 rm ./log/production.log > /dev/null 2>&1
 service apache2 restart
+curl stormbet.cometa.ro/login > /dev/null 2>&1
