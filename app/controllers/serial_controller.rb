@@ -7,41 +7,42 @@ class SerialController < ApplicationController
     if not device
       Log.create(operation: "Invalid license "+(params[:serial] || ''))
       render text: "Invalid license" and return
-    else
-      Log.create(operation: "Update "+params[:serial]+" object "+(params[:object] || ""))
     end
     if device and params[:object]
-	      if params[:object]=='Mediafile'
-    	    mediafile_ids1 = Parentcalendarmediafile.select('mediafile_id').where(['calendar_id=? and mediafile_id is not null', device.calendar.id])
-    	    plist_ids = Parentcalendarmediafile.select('plist_id').where(['calendar_id=? and plist_id is not null', device.calendar.id])
-    	    mediafile_ids2 = Plistmediafile.select('mediafile_id').where(['plist_id in (?)', plist_ids])
-	        rasp=Mediafile.where(['id in (?) or id in (?)',mediafile_ids1, mediafile_ids2])
-	      elsif params[:object]=='Plist'
-    	    plist_ids = Parentcalendarmediafile.select('plist_id').where(['calendar_id=? and plist_id is not null', device.calendar.id])
-	        rasp=Plist.where(id: plist_ids)
-	      elsif params[:object]=='Calendar'
-	        rasp=Calendar.where(id: device.calendar_id)
-	      elsif params[:object]=='Calendarmediafile'
-    	    ids = Parentcalendarmediafile.select('id').where(calendar_id: device.calendar.id)
-    	    rasp = Calendarmediafile.where(['parentcalendarmediafile_id in (?) and date(start) between ? and date(DATE_ADD(?,INTERVAL 14 DAY))', ids, t, t])
-      	elsif params[:object]=='Parentcalendarmediafile'
-      	  rasp = Parentcalendarmediafile.where(['calendar_id=? and ? between date(`from`) and date(`to`)', device.calendar.id, t])
-      	elsif params[:object]=='Plistmediafile'
-    	    plist_ids = Parentcalendarmediafile.select('plist_id').where(['calendar_id=? and plist_id is not null', device.calendar.id])
-    	    rasp = Plistmediafile.where(['plist_id in (?)', plist_ids])
-      	else
-      	    rasp=Log.where(id: 0)
-      	end
-      	begin
-      	    max=rasp.maximum(:created_at).strftime("%s")+"I"+rasp.sum(:id).to_s
-      	rescue
-      	    max=0
-      	end
-      	rasp='{}' if max == params[:max]
+      Log.create(operation: "Update "+params[:serial]+" object "+params[:object], device_id: device.id)
+      if params[:object]=='Mediafile'
+  	    mediafile_ids1 = Parentcalendarmediafile.select('mediafile_id').where(['calendar_id=? and mediafile_id is not null', device.calendar.id])
+  	    plist_ids = Parentcalendarmediafile.select('plist_id').where(['calendar_id=? and plist_id is not null', device.calendar.id])
+  	    mediafile_ids2 = Plistmediafile.select('mediafile_id').where(['plist_id in (?)', plist_ids])
+        rasp=Mediafile.where(['id in (?) or id in (?)',mediafile_ids1, mediafile_ids2])
+      elsif params[:object]=='Plist'
+  	    plist_ids = Parentcalendarmediafile.select('plist_id').where(['calendar_id=? and plist_id is not null', device.calendar.id])
+        rasp=Plist.where(id: plist_ids)
+      elsif params[:object]=='Calendar'
+        rasp=Calendar.where(id: device.calendar_id)
+      elsif params[:object]=='Calendarmediafile'
+  	    ids = Parentcalendarmediafile.select('id').where(calendar_id: device.calendar.id)
+  	    rasp = Calendarmediafile.where(['parentcalendarmediafile_id in (?) and date(start) between ? and date(DATE_ADD(?,INTERVAL 14 DAY))', ids, t, t])
+    	elsif params[:object]=='Parentcalendarmediafile'
+    	  rasp = Parentcalendarmediafile.where(['calendar_id=? and ? between date(`from`) and date(`to`)', device.calendar.id, t])
+    	elsif params[:object]=='Plistmediafile'
+  	    plist_ids = Parentcalendarmediafile.select('plist_id').where(['calendar_id=? and plist_id is not null', device.calendar.id])
+  	    rasp = Plistmediafile.where(['plist_id in (?)', plist_ids])
+    	else
+    	    rasp=Log.where(id: 0)
+    	end
+    	begin
+    	    max=rasp.maximum(:created_at).strftime("%s")+"I"+rasp.sum(:id).to_s
+    	    render text: max and return
+    	rescue
+    	    max=0
+    	end
+    	rasp='{}' if max == params[:max]
+    elsif device and params[:mediafile]
+      Log.create(operation: "Playing", device_id: device.id,mediafile_id: params[:mediafile],operation_type: params[:operationtype])
     end
     render json: rasp || '{}'
   end
-  
   def download
     begin
         send_file Rails.root.to_s+'/public/songs/'+params[:user_id]+'/'+params[:song], :type=>"application/zip", :x_sendfile=>true
