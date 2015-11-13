@@ -36,7 +36,11 @@ class SerialController < ApplicationController
     	rescue
     	    max=0
     	end
-    	rasp='{}' if max == params[:max]
+    	if max == params[:max]
+        rasp='{}'
+      else
+        Log.create(operation: "Update "+params[:serial]+" object "+params[:object], device_id: device.id, operation_type: 3)
+      end
     elsif device and params[:mediafile]
       Log.create(operation: "Playing", device_id: device.id,mediafile_id: params[:mediafile],operation_type: params[:operationtype])
     end
