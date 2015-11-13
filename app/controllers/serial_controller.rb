@@ -9,7 +9,6 @@ class SerialController < ApplicationController
       render text: "Invalid license" and return
     end
     if device and params[:object]
-      Log.create(operation: "Update "+params[:serial]+" object "+params[:object], device_id: device.id, operation_type: 3)
       if params[:object]=='Mediafile'
   	    mediafile_ids1 = Parentcalendarmediafile.select('mediafile_id').where(['calendar_id=? and mediafile_id is not null', device.calendar.id])
   	    plist_ids = Parentcalendarmediafile.select('plist_id').where(['calendar_id=? and plist_id is not null', device.calendar.id])
@@ -33,7 +32,7 @@ class SerialController < ApplicationController
     	end
     	begin
     	    max=rasp.maximum(:created_at).strftime("%s")+"I"+rasp.sum(:id).to_s
-    	    render text: max and return
+#    	    render text: max and return
     	rescue
     	    max=0
     	end
