@@ -3,7 +3,7 @@ class Device < ActiveRecord::Base
   belongs_to :calendar
 
   def active
-    log=Log.where('operation like "%'+self.sn+'%"').order(id: :desc).first if not self.sn.empty?
+    log=Log.where(device_id: self.id).order(id: :desc).first
     if not log
       color='danger disabled'
     elsif (Time.now - log.created_at) < 12*60
