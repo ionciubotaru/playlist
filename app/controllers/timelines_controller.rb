@@ -11,7 +11,9 @@ class TimelinesController < ApplicationController
     render json: '{}'
   end
   def log
-    @device=Device.first    
-    @logs=Log.all.order(created_at: :desc).limit(300)
+    @device=Device.find(params[:id] || 0)    
+    @logs=Log.select('logs.*,mediafiles.name,mediafiles.mediatype')
+      .joins(:mediafile)
+      .where("device_id = #{@device.id} and operation_type in (1,2)").order(created_at: :desc).limit(300)
   end
 end

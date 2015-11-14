@@ -9,19 +9,30 @@
         <table id="timeline-table-logs" class="display">
           <thead>
             <tr>
-              <th>Operation</th>
+              <th>Madiafile</th>
+              <th>Mediatype</th>
+              <th>Location</th>
               <th>Date</th>
             </tr>
           </thead>
           <tbody>
-<small>
             <% @logs.each do |log| %>
             <tr>
-              <td><%= log.operation %></td>
+              <td><%= log.name %></td>
+              <td><%= case log.mediatype
+                        when 1 
+                          'audio file'
+                        when 2 
+                          'vide file'
+                        when 3
+                          'audio add'
+                        else
+                          'vide add'
+                        end %></td>
+              <td><%= (log.operation_type == 1 ? 'local' : 'remote') %></td>
               <td><%= log.created_at.to_formatted_s(:short) %></td>
             </tr>
             <% end %>
-</small>
           </tbody>
         </table>
       </div>

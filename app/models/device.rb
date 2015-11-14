@@ -13,7 +13,7 @@ class Device < ActiveRecord::Base
     else
       color='danger'
     end
-    msg='<a data-remote="true" href="/timelines/log" class="btn btn-'+color+' btn-xs" role="button">'+(log ? log.created_at.to_formatted_s(:short) : "&nbsp;&nbsp;&nbsp;&nbsp;Never&nbsp;&nbsp;&nbsp;&nbsp;") +'</a>'
+    msg='<a data-remote="true" href="/timelines/log?id='+self.id.to_s+'" class="btn btn-'+color+' btn-xs" role="button">'+(log ? log.created_at.to_formatted_s(:short) : "&nbsp;&nbsp;&nbsp;&nbsp;Never&nbsp;&nbsp;&nbsp;&nbsp;") +'</a>'
     msg
   end
   

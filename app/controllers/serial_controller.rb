@@ -39,10 +39,10 @@ class SerialController < ApplicationController
     	if max == params[:max]
         rasp='{}'
       else
-        Log.create(operation: "Update "+params[:serial]+" object "+params[:object], device_id: device.id, operation_type: 3)
+        Log.create(params[:object], device_id: device.id, operation_type: 3)
       end
     elsif device and params[:mediafile]
-      Log.create(operation: "Playing", device_id: device.id,mediafile_id: params[:mediafile],operation_type: params[:operationtype])
+      Log.create(device_id: device.id,mediafile_id: params[:mediafile],operation_type: params[:operationtype])
     end
     render json: rasp || '{}'
   end
@@ -91,7 +91,7 @@ class SerialController < ApplicationController
       device.version=params[:version]
       device.sdfull=params[:full].to_i+10
       device.save
-      Log.create(operation: "Alive "+params[:serial], device_id: device.id, operation_type: 4)
+      Log.create(device_id: device.id, operation_type: 4)
       txt=device.order
       txt = "Ok" if not txt
     else
