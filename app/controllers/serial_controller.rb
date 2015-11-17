@@ -92,7 +92,7 @@ class SerialController < ApplicationController
       device.version=params[:version]
       device.sdfull=params[:full].to_i+10
       device.save
-      Log.create(device_id: device.id, operation_type: 4)
+      Log.create(device_id: device.id, operation_type: 4,remote: remote)
       txt=device.order
       txt = "Ok" if not txt
     else
