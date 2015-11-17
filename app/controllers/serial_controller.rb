@@ -39,7 +39,7 @@ class SerialController < ApplicationController
     	if max == params[:max]
         rasp='{}'
       else
-        Log.create(params[:object], device_id: device.id, operation_type: 3)
+        Log.create(operation: params[:object], device_id: device.id, operation_type: 3)
       end
     elsif device and params[:mediafile]
       Log.create(device_id: device.id,mediafile_id: params[:mediafile],operation_type: params[:operationtype])
