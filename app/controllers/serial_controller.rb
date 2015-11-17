@@ -3,9 +3,10 @@ class SerialController < ApplicationController
   def index
     rasp='{}'
     t = Time.now.to_date
+    remote=request.env["REMOTE_ADDR"]
     device=Device.where(sn: params[:serial]).first
     if not device
-      Log.create(operation: "Invalid license "+(params[:serial] || ''))
+      Log.create(operation: "Invalid license "+(params[:serial] || ''), remote: remote)
       render text: "Invalid license" and return
     end
     if device and params[:object]
@@ -39,10 +40,10 @@ class SerialController < ApplicationController
     	if max == params[:max]
         rasp='{}'
       else
-        Log.create(operation: params[:object], device_id: device.id, operation_type: 3)
+        Log.create(operation: params[:object], device_id: device.id, operation_type: 3,remote: remote)
       end
     elsif device and params[:mediafile]
-      Log.create(device_id: device.id,mediafile_id: params[:mediafile],operation_type: params[:operationtype])
+      Log.create(device_id: device.id,mediafile_id: params[:mediafile],operation_type: params[:operationtype],remote: remote)
     end
     render json: rasp || '{}'
   end
