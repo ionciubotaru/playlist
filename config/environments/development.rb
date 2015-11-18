@@ -42,5 +42,5 @@ Rails.application.configure do
 
 #  config.web_console.whiny_requests = false
 #  config.web_console.whitelisted_ips =   %w(86.124.74.43 89.33.121.39)
-#   config.web_console.whitelisted_ips =   '0.0.0.0/0.0.0.0'
+   config.web_console.whitelisted_ips =   '0.0.0.0/0.0.0.0'
 end
