@@ -88,16 +88,16 @@ class SerialController < ApplicationController
   
   def pi
     device=Device.where(sn: params[:serial]).first
-    if device and not params[:kill]
+    if device and params[:kill]=="1"
+      Log.create(device_id: device.id, operation_type: 5,remote: request.env["REMOTE_ADDR"])
+      txt = "OK"
+    elsif device
       device.version=params[:version]
       device.sdfull=params[:full].to_i+10
       device.save
       Log.create(device_id: device.id, operation_type: 4,remote: request.env["REMOTE_ADDR"])
       txt=device.order
       txt = "Ok" if not txt
-    elsif device and params[:kill]
-      Log.create(device_id: device.id, operation_type: 5,remote: request.env["REMOTE_ADDR"])
-      txt = "OK"
     else
       txt="Error"
     end
