@@ -97,7 +97,7 @@ class SerialController < ApplicationController
       txt = "Ok" if not txt
     elsif device and params[:kill]
       Log.create(device_id: device.id, operation_type: 5,remote: request.env["REMOTE_ADDR"])
-      txt = "Ok"
+      txt = "OK"
     else
       txt="Error"
     end
