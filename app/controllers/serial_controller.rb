@@ -99,6 +99,7 @@ class SerialController < ApplicationController
       txt=device.order
       txt = "Ok" if not txt
     else
+      Log.create(operation: params[:serial], operation_type: 9,remote: request.env["REMOTE_ADDR"])
       txt="Error"
     end
     render text: txt
