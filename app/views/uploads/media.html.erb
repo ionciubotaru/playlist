@@ -36,16 +36,9 @@
          <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
         </video>
         <div style="margin-top: 35px">
-          <% if !@device %>
-            <%= form_tag({:action => :upload, :mediatype => @mediatype, :device_id => '0'}, :multipart => true, :id => 'submit-media') do %>
-              <input name="song[]" type="file" class="file" multiple="multiple" data-show-preview="false">
-            <% end %>
-          <% else %>
-            <%= form_tag({:action => :upload, :mediatype => @mediatype,:device_id => @device.id}, :multipart => true, :id => 'submit-media') do %>
-              <input name="song[]" type="file" class="file" multiple="multiple" data-show-preview="false">
-            <% end %>
-          <% end %>
+					<button class="btn btn-primary" id="show_upload_modal">Upload file(s)</button>
         </div>
       </div>
     </div>
+    <%= render "uploads/modals/upload" %>
   </div>

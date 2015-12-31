@@ -142,7 +142,7 @@ class PlaylistController < ApplicationController
     redirect_to '/calendars'
   end
   def update_plist
-    event = Plist.where(user_id: session[:user_id], id: params[:ap_id]).first
+    event = Plist.where(user_id: session[:user_id],id: params[:plist_id]).first
     event.name = params[:playlist_name] if params[:playlist_name]
     event.comment = params[:playlist_comment] if params[:playlist_comment]
     event.color = params[:playlist_color] if params[:playlist_color]

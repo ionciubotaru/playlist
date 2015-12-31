@@ -21,6 +21,14 @@
                   <li><a href="/devices/" style="padding-left: 0"><button type="button" class="btn btn-default"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Devices</button></a></li>
                   <li><a href="/calendars" style="padding-left: 0"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Calendars</button></a></li>
                   <li><a href="/timelines" style="padding-left: 0"><button type="button" class="btn btn-default"><i class="fa fa-exchange"></i>&nbsp;&nbsp;Devices & Calendars</button></a></li>
+                  <li>
+			 <a id="mActions" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				<button type="button" class="btn btn-default"><i class="fa fa-align-justify"></i>&nbsp;&nbsp;More</button>
+			  </a>
+			  <ul class="dropdown-menu" aria-labelledby="mActions">
+                          	<li><a href="/manage/users"><i class="fa fa-users"></i>&nbsp;&nbsp;Manage users</a></li>
+			  </ul>
+		  </li>
 <%  if not Rails.env.production? %>
                   <!--<li><a href="/charts" style="padding-left: 0"><button type="button" class="btn btn-default"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Charts</button></a></li>-->
 <% end %>
@@ -33,11 +41,9 @@
                       <%= current_user.name %>
                       <span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
-<!--                      <li <% if !@section_id %> class="disabled" <% end %>><a <% if @section_id %> href="/utilizator/<%= @product_id || 0%>/<%= @section_id %>/raport" <% end %>><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Raport de producţie</a></li>> -->
-                          <li><a id="change-password" href="#"><i class="fa fa-key"></i>&nbsp;&nbsp;Schimbare parolă</a></li>
-                          <li><a href="/media?device_id=0&mediatype=1"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;Centrul media</a></li>
+                          <li><a id="change-password" href="#"><i class="fa fa-key"></i>&nbsp;&nbsp;Change password</a></li>
                           <li class="divider"></li>
-                          <li><a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Ieşire</a></li>
+                          <li><a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a></li>
                       </ul>
                   </li>
         	  <% end %>

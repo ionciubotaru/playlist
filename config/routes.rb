@@ -49,8 +49,14 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
+  post '/user/update' => 'users#update'
+  post '/user/delete' => 'users#destroy'
+  get '/user/getresources' => 'users#get_resources'
+  get '/user/getdata' => 'users#get_data'
+  get '/users/tree' => 'users#get_tree'
+  get '/manage/users/' => 'users#index'
   get '/signup' => 'users#new'
-  post '/users' => 'users#create'
+  post '/users/add' => 'users#add'
   post '/users/password' => 'users#change_password'
 
   get '/media', to: 'uploads#media'

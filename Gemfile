@@ -41,6 +41,7 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'quiet_assets'
 end
 
 gem 'mysql2', '~> 0.3.18'
@@ -49,7 +50,7 @@ gem 'font-awesome-rails'
 gem 'awesome_print', group: :development
 gem 'bootstrap-validator-rails'
 gem 'bootstrap-select-rails'
-gem 'jquery-datatables-rails', '~> 3.1.1'
+gem 'jquery-datatables-rails', '~> 3.1.0'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 gem 'jquery-fileupload-rails'
@@ -62,4 +63,3 @@ gem 'jquery_context_menu-rails'
 gem 'gmaps4rails'
 gem 'bootstrap_colorpicker_rails'
 gem 'google_visualr', '>= 2.1'
-gem 'odf-report' 

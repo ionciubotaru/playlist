@@ -26,6 +26,7 @@
  *= require css/fileinput
  *= require jquery.contextMenu
  *= require fullcalendar
+ *= require bootstrap-treeview/dist/bootstrap-treeview.min.css
  *= require_self
  */
 
@@ -42,4 +43,12 @@
        url('../assets/glyphicons-halflings-regular.woff') format('woff'), 
        url('../assets/glyphicons-halflings-regular.ttf') format('truetype'), 
        url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+td.details-control {
+    background: url('details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('details_close.png') no-repeat center center;
 }

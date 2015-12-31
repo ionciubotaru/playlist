@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <span class="current-page hide" data-controller-name="users" data-action-name="index"></span>
+    <div class="panel panel-default">
+      <div class="panel-body" >
+        <div class="col-md-4 row">
+          <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading clearfix">
+               <div class="col-md-9 row"> 
+                  <input id="search-user" class="form-control" type="search" placeholder="Search user">
+                </div>
+                <div class="pull-right" style="margin-top: 7px"> 
+									<i id="expand-tree" style="cursor: pointer" title="Expand all" class="fa fa-folder-open-o hide"></i>
+									<i id="collapse-tree" style="cursor: pointer" title="Collapse all" class="fa fa-folder-o"></i>
+									&nbsp;
+									<i id="new-user" style="cursor: pointer" title="Create new user" class="fa fa-plus"></i>
+									&nbsp;
+									<i id="update-user" style="cursor: not-allowed; opacity: 0.5" title="Update selected user" class="fa fa-edit"></i>
+									&nbsp;
+									<i id="delete-user" style="cursor: not-allowed; opacity: 0.5" title="Delete selected user" class="fa fa-trash"></i>
+                </div>
+            </div>
+            <div class="panel-body">
+										<div id="uTree">
+										</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 row pull-right">
+				<div id="info-container" class="hide">
+                <div class="alert alert-danger fade in">
+                  <button class="close" data-dismiss="alert">×</button>
+                  <i class="fa fa-warning"></i>&nbsp;&nbsp;<span>Please select a user!</span>
+                </div>
+				</div>
+					<div id="table-container">
+						<table id="example" class="display" cellspacing="0" width="100%">
+								<thead>
+										<tr>
+												<th></th>
+												<th>Device</th>
+												<th>Location</th>
+												<th>SN</th>
+												<th>SD %</th>
+												<th>Last request</th>
+										</tr>
+								</thead>
+						</table>
+        </div>
+      </div>
+     </div>
+    </div>
+    <%= render "users/modals/new" %>
+    <%= render "users/modals/delete" %>
+    <%= render "users/modals/update" %>
+  </div>

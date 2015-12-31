@@ -16,7 +16,9 @@ class UploadsController < ApplicationController
       song.size=File.size(saved_name)/1024/1024
       song.save
     end
-      redirect_to '/media?device_id='+params[:device_id]+'&mediatype='+params[:mediatype], success: 'File uploaded!'
+      #redirect_to '/media?device_id='+params[:device_id]+'&mediatype='+params[:mediatype], success: 'File uploaded!'
+      #redirect_to '/media?device_id=0&mediatype=1', success: 'File uploaded!'
+			render json: {}
   end
 
   def media

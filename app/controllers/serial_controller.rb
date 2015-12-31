@@ -105,5 +105,16 @@ class SerialController < ApplicationController
     render text: txt
   end
 
+  def debug
+    device=Device.where(sn: params[:serial]).first
+    if device
+      Log.create(device_id: device.id, operation_type: 8,remote: request.env["REMOTE_ADDR"],operation: params[:operation])
+      txt = "OK"
+    else
+      txt = "Err"
+    end
+    render text: txt
+  end
+
 end
 

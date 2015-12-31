@@ -1,0 +1,74 @@
+    <div id="new-user-container" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Create new user</h4>
+          </div>
+					<%= form_tag '/users/add', { method: :post, :class => "", :id => "new-user" } do %>
+          <div class="modal-body">
+            <div class="panel panel-default">
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+                        <label for="first-name" class="col-sm-5 control-label">Firstname&nbsp;&nbsp;<i class="fa fa-tags"></i></label>
+                        <div class="col-sm-7">
+                          <input id="first-name" name="firstname" type='text' class="form-control" />
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="last-name" class="col-sm-5 control-label">Lastname&nbsp;&nbsp;<i class="fa fa-tags"></i></label>
+                        <div class="col-sm-7">
+                          <input id="last-name" name="lastname" type='text' class="form-control" />
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="mail" class="col-sm-5 control-label">Mail&nbsp;&nbsp;<i class="fa fa-envelope-o"></i></label>
+                        <div class="col-sm-7">
+                          	<input id="mail" name="mail" type='text' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-passwd1" class="col-sm-5 control-label">Password&nbsp;&nbsp;<i class="fa fa-key"></i></label>
+                        <div class="col-sm-7">
+                          <input id="user-passwd1" name="newpasswd" type='password' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-passwd2" class="col-sm-5 control-label">Password (repeat)&nbsp;&nbsp;<i class="fa fa-key"></i></label>
+                        <div class="col-sm-7">
+                          <input id="user-passwd2" name="repeat_newpasswd" type='password' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-5 control-label">Address&nbsp;&nbsp;<i class="fa fa-building-o"></i></label>
+                        <div class="col-sm-7">
+                           <textarea id="address" rows="3" name="address" class="form-control"></textarea>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="device-sn" class="col-sm-5 control-label">Parent user&nbsp;&nbsp;<i class="fa fa-user"></i></label>
+                        <div class="col-sm-7">
+															<select class="form-control" id="parent" name="parent_id">
+																<% @users.each do |u| %>
+																			<option value="<%= u.id %>"><%= u.fullname %></option> 
+																<% end %>
+															</select>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="obs" class="col-sm-5 control-label">Obs.&nbsp;&nbsp;<i class="fa fa-pencil-square-o"></i></label>
+                        <div class="col-sm-7">
+                            <textarea id="obs" rows="4" name="obs" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button id="submit-new-user" type="submit" class="btn btn-primary">Save</button>
+          </div>
+					<% end %>
+        </div>
+      </div>
+    </div>

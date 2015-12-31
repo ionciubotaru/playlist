@@ -12,20 +12,13 @@
   <%= javascript_include_tag '//www.google.com/jsapi' %>
 
   <%= csrf_meta_tags %>
-  <script>
-    var songtype = <%= @songtype || 'null' %>; 
-    var device_id = <%= @device_id || 'null' %>;
-    <%  if Rails.env.production? %>
-        $(this).bind("contextmenu", function(e) {
-            e.preventDefault();
-        });
-    <%end%>
-  </script>
+  <%= render "layouts/nocontextmenu" %>
+
 </head>
 <body>
 
 <%= render "layouts/header" %>
-  <%= yield %>
+<%= yield %>
 <%= render "layouts/footer" %>
 
 </body>

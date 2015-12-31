@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery2
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
@@ -34,6 +34,7 @@
 //require turbolinks
 // require jquery.contextMenu.js
 //= require bootstrap-colorpicker
+//= require bootstrap-treeview/dist/bootstrap-treeview.min.js
 //= require_tree .
 
 //$(document).on('ready page:ready', function() {
@@ -151,6 +152,41 @@ $(document).ready(function () {
       $('button#playlist-order').click(function() {
        $('#order-container').modal(); 
       });
+
+      $('button#show_upload_modal').click(function() {
+       $('#upload-container').modal(); 
+      });
+
+		$.urlParam = function(name){
+				var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+				if (results == null) {
+					 return null;
+				}
+				else {
+					 return results[1] || 0;
+				}
+		}
+	
+		$("#input-708").fileinput({
+				uploadUrl: '/media/upload?mediatype=' + $.urlParam('mediatype'), // server upload action
+				uploadAsync: false,
+				//maxFileCount: 5
+		}).on('filebatchpreupload', function(event, data) {
+				var n = data.files.length, files = n > 1 ? n + ' files' : 'one file';
+				if (!window.confirm("Are you sure you want to upload " + files + "?")) {
+						return {
+								message: "Upload aborted!", // upload error message
+								data:{} // any other data to send that can be referred in `filecustomerror`
+						};
+				}
+		}).on('filebatchuploadsuccess', function(event, data, previewId, index) {
+    		//var form = data.form, files = data.files, extra = data.extra,
+        //response = data.response, reader = data.reader;
+    		//console.log('File batch upload success');
+				$('#upload-container').modal('hide');
+				location.reload();
+		});
+
 
   } else if (currentPage == 'playlist' && currentView == 'index') {
 
@@ -1006,5 +1042,215 @@ $(document).ready(function () {
     $('.day7').text($('#calendar-701').fullCalendar('getView').start.format('YYYY-MM-DD'));
 
     $('.fc-axis').addClass('small');
-  }
+  } else if (currentPage == 'users' && currentView == 'index') {
+				$.ajax({
+					url: '/users/tree',
+					type: "GET",
+					success: function(data) {
+								$('#uTree').treeview({
+									data: data,
+									showTags: true,
+									onNodeSelected: function(event, node) {
+										getUserData(node.href);
+										$('#info-container').addClass('hide');
+										$('#table-container').removeClass('hide');
+										table.ajax.url('/user/getresources?id=' + node.href).load();
+										$('i#update-user')
+										.css({ 'opacity': '1', 'cursor': 'pointer' })
+										.attr('data-user-id', node.href)
+										.attr('data-user-name', node.text);
+										if (node.nodeId !== 0) {
+														if(node.has_children === 0 ) {
+															$('i#delete-user')
+															.css({ 'opacity': '1', 'cursor': 'pointer' })
+															.attr('data-user-id', node.href)
+															.attr('data-user-name', node.text);
+														}
+										}
+									},
+									onNodeUnselected: function(event, node) {
+										$('i#update-user, i#delete-user').css({ 'opacity': '0.4', 'cursor': 'not-allowed' }).removeAttr('data-user-id');
+										$('#info-container').removeClass('hide');
+										$('#table-container').addClass('hide');
+									},
+								});
+								$('#uTree').treeview('selectNode', [ 1, { silent: false } ]);
+					}
+			  });
+				$('i#new-user').click(function(){
+						$('#new-user-container').modal();
+						validateUser();
+				});
+				$('i#delete-user').click(function(){
+						var attr = $(this).attr('data-user-id');
+						if (typeof attr !== typeof undefined && attr !== false) {
+							$('#delete-user-container').modal();
+							$('.username').text($(this).attr('data-user-name'));
+							$('.user-target-id').val(attr);
+						} 
+				});
+				$('i#collapse-tree').click(function(){
+					$('#uTree').treeview('collapseAll', { silent: true });
+					$(this).addClass('hide');
+					$('i#expand-tree').removeClass('hide');
+				});
+				$('i#expand-tree').click(function(){
+					$('#uTree').treeview('expandAll', { silent: true });
+					$(this).addClass('hide');
+					$('i#collapse-tree').removeClass('hide');
+				});
+
+        var search = function(e) {
+          var pattern = $('input#search-user').val();
+          var options = {
+            ignoreCase: true,
+            revealResults: true
+          };
+					$('#uTree').treeview('search', [ pattern, options ]);
+        }
+				$('input#search-user').on('keyup', search);
+
+				function getUserData(id) {
+								$.ajax({
+									url: '/user/getdata',
+									data: { user_id: id },
+									type: "GET",
+									success: function(data) {
+												$('i#update-user').click(function() {
+														var attr = $(this).attr('data-user-id');
+														if (typeof attr !== typeof undefined && attr !== false) {
+															$('#update-user-container').modal();
+															$('input#user_id').val(attr);
+															$.each(data, function(index, res) {
+																$('input[name=firstname]').val(res.firstname);
+																$('strong[id=fn]').text(res.firstname);
+																$('input[name=lastname]').val(res.name);
+																$('strong[id=ln]').text(res.name);
+																$('input[name=mail]').val(res.email);
+																$('textarea[name=address]').val(res.address);
+																$('textarea[name=obs]').val(res.obs);
+															});
+														}
+														//console.log(res.firstname);
+												});
+									}
+								});
+				}
+				function validateUser() {
+								$('form#new-user').bootstrapValidator({
+										excluded: [':disabled'],
+										feedbackIcons: {
+												valid: 'glyphicon glyphicon-ok',
+												invalid: 'glyphicon glyphicon-remove',
+												validating: 'glyphicon glyphicon-refresh'
+										},
+										fields: {
+												firstname: {
+														validators: {
+																notEmpty: {
+																		message: 'Mandatory field!'
+																},
+														}
+												},
+												lastname: {
+														validators: {
+																notEmpty: {
+																		message: 'Mandatory field!'
+																},
+														}
+												},
+												mail: {
+														validators: {
+																notEmpty: {
+																		message: 'Mandatory field!'
+																},
+														}
+												},
+												newpasswd: {
+														validators: {
+																notEmpty: {
+																		message: 'Mandatory field!'
+																},
+																stringLength: {
+																		min: 6,
+																		message: 'Password length must exceed 5 chars!'
+																},
+														}
+												},
+												repeat_newpasswd: {
+														validators: {
+																notEmpty: {
+																		message: 'Mandatory field!'
+																},
+																identical: {
+																		field: 'newpasswd',
+																		message: 'Password doesn\'t match!'
+																},
+														}
+												},
+										},
+								});
+				}
+				$('#new-user-container').on('hidden.bs.modal', function() {
+						$('form#new-user').data('bootstrapValidator').destroy();
+						$('form#new-user').find('input, textarea').val('');
+						
+				});
+
+				/* Formatting function for row details - modify as you need */
+				function format ( d ) {
+						// `d` is the original data object for the row
+						return '<table cellpadding="5" cellspacing="0" border="0" style="margin-left: 60px;">'+
+								'<tr>'+
+										'<td>Calendar:</td>'+
+										'<td title="Clic for 7 days report">'+d.cal+'</td>'+
+								'</tr>'+
+								'<tr>'+
+										'<td>Last mediafile:</td>'+
+										'<td>'+d.last_m+' at '+ d.last_at+'</td>'+
+								'</tr>'+
+								'<tr>'+
+										'<td>Extra info:</td>'+
+										'<td>And any further details here (images, link to files, etc, etc)...</td>'+
+								'</tr>'+
+						'</table>';
+				}
+				var table = $('#example').DataTable({
+						//paging: false,
+						//ordering: false,
+						//info: false,
+						//searching: false,
+						//retrieve: true,
+						"columns": [
+								{
+										"className":      'details-control',
+										"orderable":      false,
+										"data":           null,
+										"defaultContent": ''
+								},
+								{ "data": "name" },
+								{ "data": "location" },
+								{ "data": "sn" },
+								{ "data": "sd", sClass: 'text-center' },
+								{ "data": "log", sClass: 'text-right' }
+						],
+						"order": [[1, 'asc']]
+				});
+					 
+				// Add event listener for opening and closing details
+				$('#example tbody').on('click', 'td.details-control', function () {
+						var tr = $(this).closest('tr');
+						var row = table.row( tr );
+		 
+						if ( row.child.isShown() ) {
+								// This row is already open - close it
+								row.child.hide();
+								tr.removeClass('shown');
+						} else {
+								// Open this row
+								row.child( format(row.data()) ).show();
+								tr.addClass('shown');
+						}
+				});
+	}
 });

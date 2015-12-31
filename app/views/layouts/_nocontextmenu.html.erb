@@ -1,0 +1,9 @@
+<script>
+  var songtype = <%= @songtype || 'null' %>; 
+  var device_id = <%= @device_id || 'null' %>;
+  <%  if Rails.env.production? %>
+      $(this).bind("contextmenu", function(e) {
+          e.preventDefault();
+      });
+  <%end%>
+</script>
