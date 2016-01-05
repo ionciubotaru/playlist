@@ -4,7 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Playlist manager</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%#= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
   <!--<%= javascript_include_tag '//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js' %>-->
   <!--<%= javascript_include_tag '//maps.googleapis.com/maps/api/js?key=AIzaSyBxz4tWGbOPDoyl48kM0pj-iHLcJU2bjAU' %>-->
   <%= javascript_include_tag '//maps.google.com/maps/api/js?v=3.13&amp;sensor=false&amp;libraries=geometry' %>
@@ -15,7 +16,7 @@
   <%= render "layouts/nocontextmenu" %>
 
 </head>
-<body>
+<body class="<%= controller_name %> <%= action_name %>">
 
 <%= render "layouts/header" %>
 <%= yield %>

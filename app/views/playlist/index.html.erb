@@ -1,3 +1,6 @@
+<%= javascript_include_tag "bootstrap-contextmenu/bootstrap-contextmenu.js" %>
+<%= javascript_include_tag "bootstrap-duallistbox/bootstrap-duallistbox.js" %>
+<%= javascript_include_tag "fullcalendar-rightclick/fullcalendar-rightclick.js" %>
 <div class="container-fluid">
   <span class="current-page hide" data-controller-name="playlist" data-action-name="index"></span>
   <div class="col-md-3 row">
@@ -11,16 +14,9 @@
         </div>
         <div id="panel1" class="panel-collapse collapse in">
           <div class="panel-body">
-                <ul id="calendar-picker" class="list-group small" style="margin-top: 20px">
-                <% @calendars.each do |d| %>
-                    <li data-toggle="cal-context" class="cal-context list-group-item radio" data-calendar-id="<%= d.id %>" data-calendar-comment="<%= d.comment %>">
-                      <label>
-                        <input style="margin-top: 2px" type="radio" name="calendar-option" value="<%= d.id %>" />
-                        <%= d.name %>
-                      </label>
-                    </li>
-                <% end %>
-                </ul>
+						<div id="cal-list-container">
+  						<%= render "playlist/partials/calendar" %>
+          	</div>
           </div>
         </div>
       </div>

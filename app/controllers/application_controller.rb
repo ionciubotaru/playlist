@@ -36,4 +36,26 @@ class ApplicationController < ActionController::Base
     # make sure flash does not appear on the next page
     flash.discard
   end
+  def get_log(dev,limit)
+    logs=Log.select('logs.*,mediafiles.name,mediafiles.mediatype')
+      .joins(:mediafile)
+      .where("device_id = #{dev} and operation_type in (1,2)").order(created_at: :desc).limit(limit)
+    logs
+  end
+  def myChildren
+		@children = [ session[:user_id] ]
+		@allusers = User.all
+		childIds(session[:user_id])
+		users = User.where(id: @children).order(:name, :firstname)
+		users
+  end
+	def childIds(parent_id)
+		@allusers.each do |u|
+			if u.parent_id==parent_id
+				@children.push(u.id) 
+				childIds(u.id)
+			end
+		end
+		@children
+	end
 end

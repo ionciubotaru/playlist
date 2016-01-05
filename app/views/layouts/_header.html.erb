@@ -17,7 +17,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left: 0">
               <ul class="nav navbar-nav">
                   <% if current_user %>
-                  <li><a href="/media?device_id=0&mediatype=1" style="padding-left: 0"><button type="button" class="btn btn-default"><i class="fa fa-th-list"></i>&nbsp;&nbsp;Media center</button></a></li>
+                  <li><a href="/media?mediatype=1" style="padding-left: 0"><button type="button" class="btn btn-default"><i class="fa fa-th-list"></i>&nbsp;&nbsp;Media center</button></a></li>
                   <li><a href="/devices/" style="padding-left: 0"><button type="button" class="btn btn-default"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Devices</button></a></li>
                   <li><a href="/calendars" style="padding-left: 0"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Calendars</button></a></li>
                   <li><a href="/timelines" style="padding-left: 0"><button type="button" class="btn btn-default"><i class="fa fa-exchange"></i>&nbsp;&nbsp;Devices & Calendars</button></a></li>
@@ -51,6 +51,6 @@
           </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
   </nav>
-  <% controller_name %><% action_name %>
-  <%= render "/users/password_container" %>
+  <%#= controller_name %><%#= action_name %>
+  <%#= render "/users/password_container" %>
 </div>

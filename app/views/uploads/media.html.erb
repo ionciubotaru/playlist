@@ -1,4 +1,5 @@
-
+<%= javascript_include_tag "bootstrap-combobox/bootstrap-combobox.js" %>
+<%= javascript_include_tag "bootstrap-fileinput/js/fileinput.min.js" %>
 <div class="col-md-12">
   <span class="current-page hide" data-controller-name="uploads" data-action-name="media"></span>
   <% flash.each do |type, message| %>
@@ -16,10 +17,10 @@
     <div class="panel-body">
       <div class="col-md-7">
       <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" <% if @mediatype == '1' %>class="active"<% else %>class=""<%end %>><a href="/media?device_id=<%= @device_id %>&mediatype=1"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;AUDIO</a></li>
-        <li role="presentation" <% if @mediatype == '3' %>class="active"<% else %>class=""<%end %>><a href="/media?device_id=<%= @device_id %>&mediatype=3"><i class="fa fa-film"></i>&nbsp;&nbsp;AUDIO ADDS</a></li>
-        <li role="presentation" <% if @mediatype == '2' %>class="active"<% else %>class=""<%end %>><a href="/media?device_id=<%= @device_id %>&mediatype=2"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;VIDEO</a></li>
-        <li role="presentation" <% if @mediatype == '4' %>class="active"<% else %>class=""<%end %>><a href="/media?device_id=<%= @device_id %>&mediatype=4"><i class="fa fa-video-camera"></i>&nbsp;&nbsp;VIDEO ADDS</a></li>
+        <li role="presentation" <% if @mediatype == '1' %>class="active"<% else %>class=""<%end %>><a href="/media?mediatype=1"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;AUDIO</a></li>
+        <li role="presentation" <% if @mediatype == '3' %>class="active"<% else %>class=""<%end %>><a href="/media?mediatype=3"><i class="fa fa-film"></i>&nbsp;&nbsp;AUDIO ADDS</a></li>
+        <li role="presentation" <% if @mediatype == '2' %>class="active"<% else %>class=""<%end %>><a href="/media?mediatype=2"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;VIDEO</a></li>
+        <li role="presentation" <% if @mediatype == '4' %>class="active"<% else %>class=""<%end %>><a href="/media?mediatype=4"><i class="fa fa-video-camera"></i>&nbsp;&nbsp;VIDEO ADDS</a></li>
       </ul>
         <div class="tab-content" style="min-height: 432px">
           <%= render '/uploads/playlist'%>
@@ -32,7 +33,7 @@
         <div style="min-height: 85px">
         </div>
         <video id="media-preview" class="video-js vjs-default-skin vjs-big-play-centered"
-          controls="controls" width="auto" height="362">
+          controls="controls" height="362" width="auto">
          <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
         </video>
         <div style="margin-top: 35px">
@@ -40,5 +41,7 @@
         </div>
       </div>
     </div>
+    </div>
     <%= render "uploads/modals/upload" %>
+    <%= render "uploads/modals/delete" %>
   </div>

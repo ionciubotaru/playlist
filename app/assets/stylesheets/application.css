@@ -10,7 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require bootstrap.min
+ *= require bootstrap-3.3.6/css/bootstrap.min
  *= require bootstrapValidator.min
  *= require bootstrap-select
  *= require font-awesome
@@ -22,11 +22,12 @@
  *= require dataTables/extras/dataTables.tableTools
  *= require bootstrap-datetimepicker
  *= require bootstrap-colorpicker
- *= require bootstrap-duallistbox
- *= require css/fileinput
+ *= require bootstrap-duallistbox/bootstrap-duallistbox
+ *= require bootstrap-fileinput/css/fileinput
  *= require jquery.contextMenu
  *= require fullcalendar
  *= require bootstrap-treeview/dist/bootstrap-treeview.min.css
+ *= require bootstrap-combobox/bootstrap-combobox.css
  *= require_self
  */
 

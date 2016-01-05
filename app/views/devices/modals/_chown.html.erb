@@ -1,0 +1,28 @@
+<div id="chown-container" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Change ownership of device <strong class="device_name"></strong></h4>
+      </div>
+      <%= form_tag '/device/chown', { method: :post, :class => "" } do %>
+				<input type="hidden" id="current_user_id" value="<%= current_user.id %>" />
+				<input type="hidden" name="device_id"/>
+        <div class="modal-body">
+          <% @users.each do |u| %>
+          <div class="radio">
+            <label>
+              <input type="radio" name="user_id" value="<%= u.id %>" />
+              <%= u.fullname %>
+            </label>
+          </div>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

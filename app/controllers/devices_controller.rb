@@ -2,9 +2,16 @@ class DevicesController < ApplicationController
   def index
     @devices=User.find(session[:user_id]).devices
     @calendars=User.find(session[:user_id]).calendars
-    @attached = Hash.new
-    @attached['calendar_id'] = 3
+		@users = myChildren() # in application_controller
+#    @attached = Hash.new
+#    @attached['calendar_id'] = 3
    end
+  def chown
+    e = Device.find(params[:device_id])
+    e.user_id = params[:user_id] if params[:user_id]
+		e.save
+    redirect_to '/devices/'
+  end
   def new
     device = Device.create(name: params[:device_name],address: params[:device_address],obs: params[:device_obs], lat: params[:lat], lng: params[:lng], sn: params[:device_sn])
     User.find(session[:user_id]).devices << device

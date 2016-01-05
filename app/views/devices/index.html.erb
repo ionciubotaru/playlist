@@ -1,3 +1,5 @@
+<%= javascript_include_tag "bootstrap-contextmenu/bootstrap-contextmenu.js" %>
+<%= javascript_include_tag "bootstrap-list-filter/bootstrap-list-filter.js" %>
 <div class="container-fluid">
   <span class="current-page hide" data-controller-name="devices" data-action-name="index"></span>
     <div class="panel panel-default">
@@ -16,7 +18,7 @@
             <div class="panel-body">
               <ul id="user_devices" class="list-group">
                 <% @devices.each do |d| %>
-                  <li data-toggle="device-context" data-location-latitude="<%= d.lat %>" data-device-id="<%= d.id %>" data-location-longitude="<%= d.lng %>" class="device-context list-group-item"><h5><%= d.name %><small>&nbsp;(<%= d.address %>)</small></h5></a></li>
+                  <li data-toggle="device-context" data-location-latitude="<%= d.lat %>" data-device-id="<%= d.id %>" data-location-longitude="<%= d.lng %>" class="device-context list-group-item"><h5><%= d.name %><small>&nbsp;(<%= d.address %>)</small></h5></li>
                 <% end %>
               </ul>
             </div>
@@ -31,5 +33,6 @@
     <%= render "devices/modals/delete" %>
     <%= render "devices/modals/update" %>
     <%= render "devices/modals/attach" %>
+    <%= render "devices/modals/chown" %>
     <%= render "devices/menus/device_context" %>
   </div>

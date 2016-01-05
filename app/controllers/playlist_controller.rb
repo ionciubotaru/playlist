@@ -123,7 +123,10 @@ class PlaylistController < ApplicationController
     event.name = params[:cal_name] if params[:cal_name]
     event.comment = params[:comment] if params[:comment]
     event.save
-    redirect_to '/calendars'
+
+    @calendars = Calendar.where(user_id: session[:user_id])
+
+		render :template => 'playlist/js/update/calendar'
   end
   def new_calendar
     Calendar.create(user_id: session[:user_id], name: params[:cal_name], comment: params[:comment])
