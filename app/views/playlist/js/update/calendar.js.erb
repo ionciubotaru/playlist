@@ -1,0 +1,9 @@
+//$('#cal-list-container').html("<%=j render 'playlist/partials/calendar' %>");
+
+var optId = "<%=j params[:calendar_id] %>";
+var optName = "<%=j params[:cal_name] %>";
+var optComment = "<%=j params[:comment] %>";
+
+$('span[id="'+ optId +'"]').text(optName);
+$('#update-calendar-container').modal('hide');
+

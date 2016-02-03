@@ -1,0 +1,10 @@
+<ul id="calendar-picker" class="list-group small" style="margin-top: 20px">
+		<% @calendars.each do |d| %>
+				<li data-toggle="cal-context" class="cal-context list-group-item radio" data-calendar-id="<%= d.id %>" data-calendar-comment="<%= d.comment %>">
+					<label>
+						<input style="margin-top: 2px" type="radio" name="calendar-option" value="<%= d.id %>" />
+						<span id="<%= d.id %>"><%= d.name %></span>
+					</label>
+				</li>
+		<% end %>
+</ul>

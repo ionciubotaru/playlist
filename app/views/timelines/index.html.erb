@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <span class="current-page hide" data-controller-name="playlist" data-action-name="timeline"></span>
+  <table id="example" class="table table-bordered table-hover" style="width: 100%">
+        <thead>
+            <tr>
+                <th class="text-center" style="vertical-align: middle" colspan="4">Device</th>
+                <th class="text-center" style="vertical-align: middle" colspan="<%= @calendars.length %>">Calendar</th>
+            <tr>
+            </tr>
+                <th style="vertical-align: middle" class="text-center" style="width: 3%">#</th>
+                <th style="vertical-align: middle">Name</th>
+                <th class="text-center" style="vertical-align: middle; width: 5%">Last request</th>
+                <th class="text-center" style="vertical-align: middle; width: 5%">SD full %</th>
+		            <% @calendars.each do |c| %>
+		              <th style="vertical-align: middle; width: 5%" class="text-center"><%= c.name %></th>
+		            <% end %>
+            </tr>
+        </thead>
+        <tbody>
+	    <% @devices.each_with_index do |d, i| %>
+<!--  <tr <% d.active ? 'class=""' : 'class=inactive' %> > -->
+            <tr>
+              <td><%= i+1 %></td>
+                <td>
+                  <h5>
+                    <%= d.name %><small>&nbsp;(<%= d.address %>)</small>
+                    <img id="loader-<%=d.id%>" src="ajax-loader.gif" class="pull-right hide" style="margin-right: 10px" />
+                  </h5>
+                </td>
+                <td class="text-center">
+                  <span><%=raw d.active %></span>
+                </td>
+                <td class="text-center">
+                  <span <%=raw d.full %></span>
+                </td>
+		            <% @calendars.each do |c| %>
+            	    <td class="text-center"><input type="radio" data-device-id="<%=d.id%>" data-calendar-id="<%=c.id%>" name="device-<%=d.id%>" value="<%=c.id%>" <%= d.calendar_id == c.id ? "checked" : "" %> ></td>
+		            <% end %>
+            </tr>
+	    <% end %>
+        </tbody>
+    </table>
+  </div>
+
+  <div id="timeline-modal"></div>

@@ -1,0 +1,5 @@
+$('#timeline-modal').html("<%=j render 'timelines/modals/show_logs' %>");
+$('#timeline-modal-container').modal();
+$('#timeline-table-logs').DataTable({
+	order: [[ 3, "desc" ]]
+});

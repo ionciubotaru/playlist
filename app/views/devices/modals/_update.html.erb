@@ -1,0 +1,56 @@
+    <div id="update-device-container" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Update device</h4>
+          </div>
+          <%= form_tag '/device/update', { method: :post, :class => "", :id => "update_device" } do %>
+            <div class="modal-body">
+              <div class="panel panel-default">
+                  <div class="panel-body form-horizontal">
+                      <input id="update_user_id" type="hidden" name="user_id" value="<%= current_user.id %>">
+                      <input id="device_id" type="hidden" name="device_id" value="">
+                      <input id="device_lat" type="hidden" name="device_lat" value="">
+                      <input id="device_lng" type="hidden" name="device_lng" value="">
+                      <div class="form-group">
+                          <label class="col-sm-5 control-label">Name&nbsp;&nbsp;<i class="fa fa-tags"></i></label>
+                          <div class="col-sm-7">
+                            <input name="device_name" type='text' class="form-control" />
+                          </div>
+                      </div> 
+                      <div class="form-group">
+                          <label class="col-sm-5 control-label">Address&nbsp;&nbsp;<i class="fa fa-map-marker"></i></label>
+                          <div class="col-sm-7">
+                              <textarea rows="4" name="device_address" class="form-control"></textarea>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-5 control-label">Obs.&nbsp;&nbsp;<i class="fa fa-pencil-square-o"></i></label>
+                          <div class="col-sm-7">
+                              <textarea rows="4" name="device_obs" class="form-control"></textarea>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-5 control-label">Serial&nbsp;&nbsp;<i class="fa fa-cog"></i></label>
+                          <div class="col-sm-7">
+                            <input name="device_sn" type='text' class="form-control" />
+                          </div>
+                      </div> 
+                      <div class="form-group">
+                          <label class="col-sm-5 control-label">Default volume&nbsp;&nbsp;<i class="fa fa-volume-up"></i></label>
+                          <div class="col-sm-7">
+                            <input name="default_vol" type='text' class="form-control"/>
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>

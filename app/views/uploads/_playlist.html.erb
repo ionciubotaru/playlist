@@ -1,0 +1,26 @@
+						<table id="media-table" class="display">
+							<thead>
+									<tr>
+											<th>#</th>
+											<th><i class="fa fa-trash-o"></i></th>
+											<th>File</th>
+											<th>Size</th>
+											<th></th>
+											<th></th>
+											<th></th>
+									</tr>
+							</thead>
+							<tbody>
+								<% @files.each_with_index do |f,i| %>
+								<tr>
+									<td><%= i+1 %></td>
+									<td><input class="checkbox pull-right" type="checkbox" data-row-id="<%= f.id %>"></td>
+									<td><%= f.name %></td>
+									<td><%= f.size %> Mb</td>
+									<td><%= f.ext %></td>
+									<td><%= f.user_id %></td>
+									<td><%= f.id %></td>
+								</tr>
+								<% end %>
+							</tbody>
+            </table>

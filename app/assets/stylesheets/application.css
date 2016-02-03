@@ -1,0 +1,55 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require bootstrap-3.3.6/css/bootstrap.min
+ *= require bootstrapValidator.min
+ *= require bootstrap-select
+ *= require font-awesome
+ *= require jquery-ui
+ *= require video-js
+ *= require_tree
+ *= require dataTables/jquery.dataTables
+ *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ *= require dataTables/extras/dataTables.tableTools
+ *= require bootstrap-datetimepicker
+ *= require bootstrap-colorpicker
+ *= require bootstrap-duallistbox/bootstrap-duallistbox
+ *= require bootstrap-fileinput/css/fileinput
+ *= require jquery.contextMenu
+ *= require fullcalendar
+ *= require bootstrap-treeview/dist/bootstrap-treeview.min.css
+ *= require bootstrap-combobox/bootstrap-combobox.css
+ *= require_self
+ */
+
+#contextMenu {
+  position: absolute;
+  display: none;
+  z-index: 999999;
+}
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../assets/glyphicons-halflings-regular.eot');
+  src: url('../assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
+       url('../assets/glyphicons-halflings-regular.woff') format('woff'), 
+       url('../assets/glyphicons-halflings-regular.ttf') format('truetype'), 
+       url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+td.details-control {
+    background: url('details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('details_close.png') no-repeat center center;
+}

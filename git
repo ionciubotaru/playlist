@@ -1,0 +1,11 @@
+#!/bin/bash
+rake tmp:clear
+rm ./log/development.log > /dev/null 2>&1
+rm ./log/production.log > /dev/null 2>&1
+git pull git@github.com:ionciubotaru/playlist.git
+git add *
+git status
+#read -p "Press Enter "
+git commit -a -m 'added'
+#read -p "Press Enter "
+git push git@github.com:ionciubotaru/playlist.git

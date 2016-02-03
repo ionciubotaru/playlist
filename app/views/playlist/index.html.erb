@@ -1,0 +1,190 @@
+<%= javascript_include_tag "bootstrap-contextmenu/bootstrap-contextmenu.js" %>
+<%= javascript_include_tag "bootstrap-duallistbox/bootstrap-duallistbox.js" %>
+<%= javascript_include_tag "fullcalendar-rightclick/fullcalendar-rightclick.js" %>
+<div class="container-fluid">
+  <span class="current-page hide" data-controller-name="playlist" data-action-name="index"></span>
+  <div class="col-md-3 row">
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="panel-title">
+            <a style="text-decoration: none" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Calendars</a>
+            <button id="new-calendar" title="Click to create a new calendar" type="button" class="btn btn-xs btn-info pull-right"><i class="fa fa-plus"></i>&nbsp;New</button>
+          </span>
+        </div>
+        <div id="panel1" class="panel-collapse collapse in">
+          <div class="panel-body">
+						<div id="cal-list-container">
+  						<%= render "playlist/partials/calendar" %>
+          	</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="panel-title">
+            <a style="text-decoration: none" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel3"><i class="fa fa-volume-up"></i>&nbsp;&nbsp;Audio playlists</a>
+            <button id="new-audio-playlist" title="Click to create a new playlist" type="button" class="btn btn-xs btn-info pull-right"><i class="fa fa-plus"></i>&nbsp;New</button>
+          </span>
+        </div>
+        <div id="panel3" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul class="list-group small" style="margin-top: 20px">
+                <% @plists.each do |p| %>
+                  <% if p.mediatype == 1 %>
+                    <li data-toggle="ap-context" data-media-type="<%= p.mediatype %>" data-selected-id="<%= p.id %>" data-selected-comment="<%= p.comment %>" data-selected-color="<%= p.color %>" title="Drag the playlist into the calendar" style="cursor: pointer" class="ap-context list-group-item external-event ui-draggable ui-draggable-handle"><%= p.name %><span title="Number of items in playlist" class="badge small"><%= p.plistmediafiles.count %></span></li>
+                  <% end %>
+                <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="panel-title">
+            <a style="text-decoration: none" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel4"><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;Audio adds</a>
+          </span>
+        </div>
+        <div id="panel4" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul class="list-group small" style="margin-top: 20px">
+                <% aaindex = 0 %>
+                <% @media.each do |m| %>
+                  <% if m.mediatype == 3 %>
+                    <% aaindex = aaindex + 1 %>
+                    <li data-media-type="<%= m.mediatype %>" data-selected-id="<%= m.id %>" title="Drag the item into the calendar" style="cursor: pointer" class="list-group-item external-event ui-draggable ui-draggable-handle"><%= aaindex %>. <%= m.name %></li>
+                  <% end %>
+                <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="panel-title">
+            <a style="text-decoration: none" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel5"><i class="fa fa-film"></i>&nbsp;&nbsp;Video playlists</a>
+            <button id="new-video-playlist" title="Click to create a new playlist" type="button" class="btn btn-xs btn-info pull-right"><i class="fa fa-plus"></i>&nbsp;New</button>
+          </span>
+        </div>
+        <div id="panel5" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul class="list-group small" style="margin-top: 20px">
+                <% @plists.each do |p| %>
+                  <% if p.mediatype == 2 %>
+                    <li data-toggle="vp-context" data-media-type="<%= p.mediatype %>" data-selected-id="<%= p.id %>" data-selected-comment="<%= p.comment %>" data-selected-color="<%= p.color %>" title="Drag the playlist into the calendar" style="cursor: pointer" class="vp-context list-group-item external-event ui-draggable ui-draggable-handle"><%= p.name %><span title="Number of items in playlist" class="badge small"><%= p.plistmediafiles.count %></span></li>
+                  <% end %>
+                <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="panel-title">
+            <a style="text-decoration: none" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel2"><i class="fa fa-video-camera"></i>&nbsp;&nbsp;Video adds</a>
+          </span>
+        </div>
+        <div id="panel2" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul class="list-group small" style="margin-top: 20px">
+                <% vaindex = 0 %>
+                <% @media.each do |m| %>
+                  <% if m.mediatype == 4 %>
+                    <% vaindex = vaindex + 1 %>
+                    <li data-media-type="<%= m.mediatype %>" data-selected-id="<%= m.id %>" title="Drag the item into the calendar" style="cursor: pointer" class="list-group-item external-event ui-draggable ui-draggable-handle"><%= vaindex %>. <%= m.name %></li>
+                  <% end %>
+                <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="panel-title">
+            <a style="text-decoration: none" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel6"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;Text</a>
+            <button id="new-text" title="Click to create a new text" type="button" class="btn btn-xs btn-info pull-right"><i class="fa fa-plus"></i>&nbsp;New</button>
+          </span>
+        </div>
+        <div id="panel6" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul class="list-group small" style="margin-top: 20px">
+                <% @media.each do |m| %>
+                  <% if m.mediatype == 5 %>
+                    <li data-toggle="text-context" data-media-type="<%= m.mediatype %>" data-text="<%= m.text %>" data-selected-id="<%= m.id %>" title="Drag the item into the calendar" style="cursor: pointer" class="text-context list-group-item external-event ui-draggable ui-draggable-handle"><%= m.name %></li>
+                  <% end %>
+                <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9 row pull-right">
+    <div class="row" id="calendar-controls"></div>
+      <table id="calendars">
+          <tr>
+            <th>
+              <div style="border-left: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                <i class="fa fa-volume-up"></i>&nbsp;&nbsp;AUDIO 1
+              </div>
+            </th>
+            <th>
+              <div style="border-left: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                <i class="fa fa-bullhorn"></i>&nbsp;&nbsp;AUDIO ADD 3
+              </div>
+            </th>
+            <th>
+              <div style="border-left: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                <i class="fa fa-film"></i>&nbsp;&nbsp;VIDEO 2
+              </div>
+            </th>
+            <th>
+              <div style="border-left: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                <i class="fa fa-video-camera"></i>&nbsp;&nbsp;VIDEO ADD 4
+              </div>
+            </th>
+            <th>
+              <div style="border-left: solid 1px lightgrey; border-right: solid 1px lightgrey; font-weight: normal; margin: 0 0 10px 0" class="text-center">
+                <i class="fa fa-edit"></i>&nbsp;&nbsp;TEXT
+              </div>
+            </th>
+          </tr>
+        <tbody>
+          <tr>
+            <td id="calendar-1" class='calendars' data-calendar-type="1"></td>
+            <td id="calendar-3" class='calendars' data-calendar-type="3"></td>
+            <td id="calendar-2" class='calendars' data-calendar-type="2"></td>
+            <td id="calendar-4" class='calendars' data-calendar-type="4"></td>
+            <td id="calendar-5" class='calendars' data-calendar-type="5"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <%= render "playlist/modals/new_calendar" %>
+  <%= render "playlist/modals/update_calendar" %>
+  <%= render "playlist/modals/delete_calendar" %>
+  <%= render "playlist/modals/attach_devices" %>
+  <%= render "playlist/modals/new_audio_playlist" %>
+  <%= render "playlist/modals/new_video_playlist" %>
+  <%= render "playlist/modals/update_audio_playlist" %>
+  <%= render "playlist/modals/update_video_playlist" %>
+  <%= render "playlist/modals/delete_audio_playlist" %>
+  <%= render "playlist/modals/delete_video_playlist" %>
+  <%= render "playlist/modals/audio_playlist_content" %>
+  <%= render "playlist/modals/video_playlist_content" %>
+  <%= render "playlist/modals/order_playlist_content" %>
+  <%= render "playlist/modals/new_text" %>
+  <%= render "playlist/modals/delete_text" %>
+  <%= render "playlist/modals/update_text" %>
+
+  <%= render "playlist/menus/event_context" %>
+  <%= render "playlist/menus/calendar_context" %>
+  <%= render "playlist/menus/audio_playlist_context" %>
+  <%= render "playlist/menus/video_playlist_context" %>
+  <%= render "playlist/menus/text_context" %>
+
+  <div id="repeat-event"></div>
+

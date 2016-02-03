@@ -1,0 +1,23 @@
+<div id="order-playlist-container" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"><i class="fa fa-key"></i>&nbsp;Change play order for <small id="plist_name"></small></h4>
+      </div>
+      <%= form_tag "/media/sort", { method: :post, id: "sort-form" } do %>
+      <div class="modal-body">
+          <ul class="list-group sortable sortable-dragging">
+            <input id="songs-order" name="songs_order" type="hidden" value="" />
+            <input id="plist_id" name="plist_id" type="hidden" value="" />
+          </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="order_submit" class="btn btn-primary" type="submit">Save play order</button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

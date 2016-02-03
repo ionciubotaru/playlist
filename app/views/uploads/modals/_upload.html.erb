@@ -1,0 +1,29 @@
+<div id="upload-container" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Upload file(s)</h4>
+      </div>
+        <div class="modal-body">
+						<div class="form-group">
+								<input id="input-708" name="song[]" type="file" multiple=multiple class="file-loading">
+						</div>
+            <%if [1,2].include?(@mediatype.to_i)%>
+              <div class="form-group combo-container hide">
+                <select class="combobox form-control">
+              		<% @plists.each do |p| %>
+										<option></option>
+              			<option value="<%= p.id %>"><%= p.name %></option>
+              		<% end %>
+              	</select>
+              </div> 
+              <span>Playlist name: </span><strong><span class="small" id="new-plist-name"></span></strong>
+          <%end%>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>

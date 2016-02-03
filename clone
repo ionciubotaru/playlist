@@ -1,0 +1,12 @@
+#!/bin/bash
+rm -fr .git 
+git init 
+git remote add origin https://github.com/ionciubotaru/playlist
+git fetch
+#git reset --mixed origin/master
+git reset --hard origin/master
+rake tmp:clear
+rm ./log/development.log > /dev/null 2>&1
+rm ./log/production.log > /dev/null 2>&1
+service apache2 restart
+curl stormbet.cometa.ro/login > /dev/null 2>&1
