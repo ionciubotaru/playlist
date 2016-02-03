@@ -5,6 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Delete media<small></small></h4>
       </div>
+<<<<<<< HEAD
         <div class="modal-body">
 						<input name="id" type="hidden" />
             Really delete <strong class="song-items"></strong> item(s)?
@@ -13,6 +14,18 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
           <button type="button" id="do_delete" class="btn btn-primary">Yes</button>
         </div>
+=======
+      <%= form_tag '/media/delete', { method: :post, :class => "" } do %>
+        <div class="modal-body">
+						<input name="id" type="hidden" />
+            Really delete <strong class="song-name"></strong>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          <button type="submit" class="btn btn-primary">Yes</button>
+        </div>
+      <% end %>
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
     </div>
   </div>
 </div>

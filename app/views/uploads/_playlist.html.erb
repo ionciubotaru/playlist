@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 						<table id="media-table" class="display">
 							<thead>
 									<tr>
@@ -23,4 +24,31 @@
 								</tr>
 								<% end %>
 							</tbody>
+=======
+            <table id="media-table" class="display">
+              <thead>
+                <tr>
+                    <th>#</th>
+                    <th>File</th>
+                    <th>Size</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+              <% @files.each_with_index do |f,i| %>
+              <tr>
+                <td><%= i+1 %></td>
+                <td><%= f.name %></td>
+                <td><%= f.size %> Mb</td>
+                <td><%= f.ext %></td>
+                <td><%= f.user_id %></td>
+                <td><%= f.id %></td>
+                <td><i data-file-id="<%= f.id %>" data-file-name="<%= f.name %>" class="fa fa-trash-o delete-media-file" title="Delete this file"></i></td>
+              </tr>
+              <% end %>
+            </tbody>
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
             </table>

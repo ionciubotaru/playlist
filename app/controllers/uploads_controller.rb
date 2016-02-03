@@ -28,6 +28,7 @@ class UploadsController < ApplicationController
   	@mediacenter=@files
   end
   def destroy
+<<<<<<< HEAD
   	songs=User.find(session[:user_id]).mediafiles.where(id: params[:selected])
 	  songs.each do |song|
 	    songName=Rails.root.join('public','songs', session[:user_id].to_s, song.id.to_s+song.ext)
@@ -35,6 +36,14 @@ class UploadsController < ApplicationController
  	    song.destroy
     end
 		render json: { 'success' => 1 }
+=======
+  	song=User.find(session[:user_id]).mediafiles.find(params[:id])
+  	mediatype=song.mediatype
+ 	  song.destroy
+	  songName=Rails.root.join('public','songs', session[:user_id].to_s, song.id.to_s+song.ext)
+	  File.delete(songName) if File.exist?(songName)
+    redirect_to '/media?mediatype='+mediatype.to_s, success: 'The file was deleted!'
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
   end
 #  def update
 #    songs=User.find(session[:user_id]).mediafiles.where(:id => params[:selected_songs],:mediatype => params[:mediatype])
@@ -47,6 +56,7 @@ class UploadsController < ApplicationController
 #    redirect_to '/media?mediatype='+params[:mediatype], success: 'The playlist has been updated!'
 #  end
   def songs
+<<<<<<< HEAD
     file="#{Rails.root}/public/#{params[:user_id]}/#{params[:file]}.#{params[:ext]}"
     if File.exists?(file)
       send_file(
@@ -57,5 +67,12 @@ class UploadsController < ApplicationController
     else
       render nothing: true
     end
+=======
+    send_file(
+      "#{Rails.root}/public/#{params[:user_id]}/#{params[:file]}.#{params[:ext]}",
+      filename: "#{params[:file_name]}",
+      type: "application/mp3"
+    )
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
   end
 end

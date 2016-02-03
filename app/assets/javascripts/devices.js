@@ -22,7 +22,10 @@ $('.devices.index').ready(function() {
                 $(container).find('textarea[name="device_address"]').val(data.address);
                 $(container).find('textarea[name="device_obs"]').val(data.obs);
                 $(container).find('input[name="device_sn"]').val(data.sn);
+<<<<<<< HEAD
                 $(container).find('input[name="default_vol"]').val(data.default_vol);
+=======
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
               }
           });
           $('#update-device-container').modal();

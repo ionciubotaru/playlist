@@ -28,8 +28,11 @@ class SerialController < ApplicationController
     	elsif params[:object]=='Plistmediafile'
   	    plist_ids = Parentcalendarmediafile.select('plist_id').where(['calendar_id=? and plist_id is not null', device.calendar.id])
   	    rasp = Plistmediafile.where(['plist_id in (?)', plist_ids])
+<<<<<<< HEAD
     	elsif params[:object]=='Device'
         rasp = Device.select('default_vol').where(sn: params[:serial]).first
+=======
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
     	else
     	    rasp=Log.where(id: 0)
     	end

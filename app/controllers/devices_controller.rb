@@ -33,7 +33,10 @@ class DevicesController < ApplicationController
     e.sn = params[:device_sn] if params[:device_sn]
     e.lat = params[:device_lat] if params[:device_lat]
     e.lng = params[:device_lng] if params[:device_lng]
+<<<<<<< HEAD
     e.default_vol = params[:default_vol] if params[:default_vol]
+=======
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
     e.save
     redirect_to '/devices/'
   end

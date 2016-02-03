@@ -13,17 +13,25 @@ $('.uploads.media').ready(function() {
 			sScrollY: '360',
 			bPaginate: false,
 			bScrollCollapse: true,
+<<<<<<< HEAD
 			//select: {
 			//		style: 'os',
 			//},
 			aoColumns: [
 					{ bSortable: false, width: '2%' },
+=======
+			aoColumns: [
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
 					{ bSortable: true, width: '3%' },
 					{ bSortable: true, width: '50%', sClass: 'text-left' },
 					{ bSortable: true, width: '10%', sClass: 'text-right' },
 					{ visible: false },
 					{ visible: false },
 					{ visible: false },
+<<<<<<< HEAD
+=======
+					{ bSortable: false, width: '5%', sClass: 'text-right' },
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
 			],
 			order: [[ 0, 'asc' ]]
 		});
@@ -38,7 +46,11 @@ $('.uploads.media').ready(function() {
     $('#media-table').on( 'click', 'tr', function () {
           var aData = table1.fnGetData(this);
           if(aData) {
+<<<<<<< HEAD
             selected = '/songs/' + aData[5]+ '/' + aData[6] + aData[4];
+=======
+            selected = '/songs/' + aData[4]+ '/' + aData[5] + aData[3];
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
             player.src(selected);
             player.currentTime(1);
           }
@@ -52,6 +64,15 @@ $('.uploads.media').ready(function() {
           }
 		});
 		
+<<<<<<< HEAD
+=======
+		$('i.delete-media-file').click(function() {
+				var id = $(this).attr('data-file-id');
+				$('input[name="id"]').val(id);
+				$('strong.song-name').text($(this).attr('data-file-name'));
+				$('#delete-media-container').modal(); 
+    });
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
 
     $('button#show_upload_modal').click(function() {
        	$('#upload-container').modal(); 
@@ -87,6 +108,7 @@ $('.uploads.media').ready(function() {
 				$('#upload-container').modal('hide');
 				location.reload();
 		});
+<<<<<<< HEAD
 
 		$('#media-table').on('change' , '.checkbox' , function(){
 				if(this.checked) {
@@ -120,4 +142,6 @@ $('.uploads.media').ready(function() {
 				});
 		}
 	
+=======
+>>>>>>> b71dc3f177d170c9fc8bde7924fd28f948e88acc
 });
